@@ -149,7 +149,16 @@ FOREIGN KEY (IdFormaPago) REFERENCES FormaPago(IdFormaPago)
 );
 
 
-
+CREATE TABLE IF NOT EXISTS Asistencia (
+    IdAsistencia INT AUTO_INCREMENT PRIMARY KEY,
+    IdCliente INT NOT NULL,
+    IdClaseProgramada INT NULL, -- Opcional (si el check-in es para una clase)
+    FechaHoraEntrada DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaHoraSalida DATETIME NULL, -- Para registrar salidas (opcional)
+    Tipo ENUM('gimnasio', 'clase') NOT NULL,
+    FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente),
+    FOREIGN KEY (IdClaseProgramada) REFERENCES Clases(IdClaseProgramada)
+);
 
 
 
