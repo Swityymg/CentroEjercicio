@@ -44,3 +44,23 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+
+-- PROBAR LAS CLASES DISPONIBLES CON CUPO
+SELECT 
+    c.IdClaseProgramada,
+    cat.NombreClase, 
+    c.Capacidad,
+    COUNT(cc.IdCliente) AS Inscritos,
+    c.Capacidad - COUNT(cc.IdCliente) AS CuposDisponibles
+FROM Clases c
+LEFT JOIN ClaseCliente cc ON c.IdClaseProgramada = cc.IdClaseProgramada
+LEFT JOIN CatalogoClases cat ON c.IdClase = cat.IdClase 
+WHERE c.FechaHora > NOW()  
+GROUP BY c.IdClaseProgramada
+HAVING CuposDisponibles > 0;
+
+
+-- EJEMPLO DEL CHECK IN
+CALL CheckInClase(3, 35);
