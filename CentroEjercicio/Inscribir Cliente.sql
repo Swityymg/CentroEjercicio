@@ -77,11 +77,10 @@ DELIMITER ;
 
 
 #CALL InscribirCliente(IdCliente,IdClaseProgramada)
-CALL InscribirCliente(10,3);
-CALL InscribirCliente(1,3);
-CALL InscribirCliente(10,3);
-
-CALL InscribirCliente(2,6);
-CALL InscribirCliente(2,7);
-CALL InscribirCliente(2,8);
+-- Ejemplo si las clases son del 31-40:
+CALL InscribirCliente(10,33);
+CALL InscribirCliente(1,33);
+CALL InscribirCliente(2,36); 
+CALL InscribirCliente(2,37);
+CALL InscribirCliente(2,38);
 
