@@ -1,6 +1,5 @@
-#Karla Trejo Delgadillo y Luis Lagos Camacho - Proyecto
+#Karla Trejo Delgadillo, Luis Lagos Camacho y Swietenia Medina Gasca - Proyecto
 #Base de datos de un centro de ejercicio
-
 #Procedimiento para inscribir un cliente a clase 
 
 USE CentroEjercicio;
