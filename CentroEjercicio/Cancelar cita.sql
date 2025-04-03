@@ -1,3 +1,6 @@
+#Karla Trejo Delgadillo, Luis Lagos Camacho y Swietenia Medina Gasca - Proyecto
+#Base de datos de un centro de ejercicio
+
 USE CentroEjercicio;
 
 DROP PROCEDURE IF EXISTS CancelarCita;
