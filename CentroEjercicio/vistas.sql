@@ -91,4 +91,16 @@ AND pagos.FechaPago = (SELECT MAX(FechaPago) FROM Pagos WHERE IdCliente = client
 
 SELECT * FROM ClientesActivos WHERE idCliente = 2;
 
+-- -- -- --
+#Vista para mostrar a los coaches con sus diferentes especialidades
+CREATE VIEW CoachEspecialidades AS
+SELECT 
+    c.IdCoach,
+    CONCAT(c.NombreCoach, ' ', COALESCE(c.ApellidoPaterno, ''), ' ', COALESCE(c.ApellidoMaterno, '')) AS NombreCompleto,
+    e.IdEspecialidad,
+    e.NombreEspecialidad,
+    e.Descripcion
+FROM Coach c
+JOIN CoachEspecialidad ce ON c.IdCoach = ce.IdCoach
+JOIN Especialidad e ON ce.IdEspecialidad = e.IdEspecialidad;
 
