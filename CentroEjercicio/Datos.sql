@@ -1,4 +1,4 @@
-#Karla Trejo Delgadillo y Luis Lagos Camacho - Proyecto
+#Karla Trejo Delgadillo, Luis Lagos Camacho y Swietenia Medina Gasca - Proyecto
 #Base de datos de un centro de ejercicio
 
 #Script para insertar valores en las tablas
@@ -7,6 +7,7 @@ USE CentroEjercicio;
 
 INSERT INTO TipoUsuario (Tipo) Values
 ('Administrador'),
+('Encargado'),
 ('Coach'),
 ('Cliente');
 
@@ -14,55 +15,79 @@ SELECT * FROM tipoUsuario;
 
 INSERT INTO Usuarios (Usuario, Contraseña, Tipo) VALUES
 ('admin1', 'pass123', 1 ),
-('coach1', 'pass456', 2 ),
-('coach2', 'pass789', 2 ),
-('coach3', 'pass896', 2 ),
-('coach4', 'pass006', 2 ),
-('coach5', 'pass345', 2 ),
-('coach6', 'pass234', 2 ),
-('coach7', 'pass234', 2 ),
-('coach8', 'pass234', 2 ),
-('cliente1', 'password1', 3 ),
-('cliente2', 'password2', 3),
-('cliente3', 'password3', 3),
-('cliente4', 'password4', 3),
-('cliente5', 'password5', 3),
-('cliente6', 'password6', 3),
-('cliente7', 'password7', 3),
-('cliente8', 'password8', 3),
-('cliente9', 'password9', 3),
-('cliente10', 'password10', 3),
-('cliente11', 'password11', 3),
-('cliente12', 'password12', 3),
-('cliente13', 'password13', 3),
-('cliente14', 'password14', 3),
-('cliente15', 'password15', 3),
-('cliente16', 'password16', 3),
-('cliente17', 'password17', 3),
-('cliente18', 'password18', 3),
-('cliente19', 'password19', 3),
-('cliente20', 'password20', 3);
+('encargado1', 'pas123',2),
+('encargado2', 'pas123',2),
+('coach1', 'pass456', 3 ),
+('coach2', 'pass789', 3 ),
+('coach3', 'pass896', 3 ),
+('coach4', 'pass006', 3 ),
+('coach5', 'pass345', 3 ),
+('coach6', 'pass234', 3 ),
+('coach7', 'pass234', 3 ),
+('coach8', 'pass234', 3 ),
+('cliente1', 'password1', 4 ),
+('cliente2', 'password2', 4),
+('cliente3', 'password3', 4),
+('cliente4', 'password4', 4),
+('cliente5', 'password5', 4),
+('cliente6', 'password6', 4),
+('cliente7', 'password7', 4),
+('cliente8', 'password8', 4),
+('cliente9', 'password9', 4),
+('cliente10', 'password10', 4),
+('cliente11', 'password11', 4),
+('cliente12', 'password12', 4),
+('cliente13', 'password13', 4),
+('cliente14', 'password14', 4),
+('cliente15', 'password15', 4),
+('cliente16', 'password16', 4),
+('cliente17', 'password17', 4),
+('cliente18', 'password18', 4),
+('cliente19', 'password19', 4),
+('cliente20', 'password20', 4);
 
 SELECT * FROM Usuarios;
 
 INSERT INTO Especialidad (NombreEspecialidad, Descripcion) VALUES
-('Yoga', 'Entrenamiento de Yoga'),
-('Pilates', 'Entrenamiento de Pilates'),
-('CrossFit', 'Entrenamiento de alta intensidad');
+('Pilates Reformer', 'Fortalece tu núcleo y mejora tu postura, con la ayuda de una máquina especializada. 
+Ejercicios adaptables para todos los niveles.'),
+('Pilates Mat', 'Entrena con tu propio peso corporal en colchonetas. Mejora el control, la alineación y 
+la flexibilidad en cada sesión.'),
+('Pilates Springboard', 'Desafía tu cuerpo, con una tabla y resortes. Trabaja fuerza y estabilidad a través
+de ejercicios dinámicos y variados.'),
+('Barre', 'Tonifica y fortalece con movimientos inspirados en el ballet. Utiliza barras para mejorar tu postura
+ y flexibilidad mientras te diviertes.'),
+('Yoga','Conéctate contigo mismo a través de posturas, respiración y meditación. Encuentra equilibrio y bienestar
+ en nuestros diversos estilos.'),
+('Spinning','Siente la energía del ciclismo en interiores. Mejora tu condición cardiovascular y tonifica tus piernas
+ con música motivadora y un instructor que te guía.');
 SELECT * FROM Especialidad;
 
-INSERT INTO Coach (NombreCoach, ApellidoPaterno, ApellidoMaterno, IdEspecialidad, FechaNacimiento, Telefono, FechaContratacion, Email, IdUsuario) VALUES
-('Carlos', 'Pérez', 'Ramírez', 1, '1985-03-15', '5551234567', '2021-01-10', 'carlos.perez@example.com', 2),
-('Ana', 'López', 'García', 2, '1990-07-20', '5552345678', '2020-05-15', 'ana.lopez@example.com', 3),
-('Luis', 'Hernández', 'Martínez', 3, '1988-09-10', '5553456789', '2022-03-01', 'luis.hernandez@example.com', 4),
-('María', 'Gómez', 'Sánchez', 1, '1992-11-25', '5554567890', '2019-10-20', 'maria.gomez@example.com', 5),
-('Roberto', 'Díaz', 'Jiménez', 2, '1986-01-05', '5555678901', '2018-12-05', 'roberto.diaz@example.com', 6),
-('Lucía', 'Torres', 'Vega', 3, '1994-06-18', '5556789012', '2023-02-15', 'lucia.torres@example.com', 7),
-('Carlos', 'Gomez', 'Sanchez', 1, '1985-02-15', '1234567890', '2022-01-10', 'carlos.gomez@example.com', 8),
-('Ana', 'Lopez', 'Martinez', 2, '1990-07-25', '0987654321', '2023-03-05', 'ana.lopez@example.com', 9);
-
-
+INSERT INTO Coach (NombreCoach, ApellidoPaterno, ApellidoMaterno, FechaNacimiento, Telefono, FechaContratacion, Email, IdUsuario) VALUES
+('Carlos', 'Pérez', 'Ramírez', '1985-03-15', '5551234567', '2021-01-10', 'carlos.perez@example.com', 2),
+('Ana', 'López', 'García', '1990-07-20', '5552345678', '2020-05-15', 'ana.lopez@example.com', 3),
+('Luis', 'Hernández', 'Martínez', '1988-09-10', '5553456789', '2022-03-01', 'luis.hernandez@example.com', 4),
+('María', 'Gómez', 'Sánchez', '1992-11-25', '5554567890', '2019-10-20', 'maria.gomez@example.com', 5),
+('Roberto', 'Díaz', 'Jiménez', '1986-01-05', '5555678901', '2018-12-05', 'roberto.diaz@example.com', 6),
+('Lucía', 'Torres', 'Vega', '1994-06-18', '5556789012', '2023-02-15', 'lucia.torres@example.com', 7),
+('Carlos', 'Gomez', 'Sanchez', '1985-02-15', '1234567890', '2022-01-10', 'carlos.gomez@example.com', 8),
+('Ana', 'Lopez', 'Martinez', '1990-07-25', '0987654321', '2023-03-05', 'ana.lopez@example.com', 9);
 SELECT * FROM Coach;
+
+INSERT INTO CoachEspecialidad (IdCoach, IdEspecialidad) VALUES
+(1,1),
+(1,2),
+(2,2),
+(3,2),
+(3,3),
+(3,4),
+(4,1),
+(5,5),
+(6,6),
+(7,1),
+(8,2);
+SELECT * FROM CoachEspecialidad;
+
 
 INSERT INTO Clientes (NombreCliente, ApellidoPaterno, ApellidoMaterno, FechaNacimiento, Telefono, Email, IdUsuario, FechaRegistro) VALUES
 ('Juan', 'Pérez', 'López', '1990-01-15', '555-1234', 'juan.perez@example.com', 1, '2024-01-01'),
@@ -93,17 +118,19 @@ INSERT INTO Administrador (NombreAdmin, ApellidoPaterno, ApellidoMaterno, FechaN
 SELECT * FROM Administrador;
 
 INSERT INTO CatalogoClases (NombreClase, Descripcion, Duracion, Costo) VALUES
-('Yoga Básico', 'Clase de yoga para principiantes', '01:00:00', 200.00),
-('Yoga Intermedio', 'Clase de yoga para principiantes', '01:00:00', 200.00),
-('Pilates Básico', 'Clase de pilates nivel intermedio', '01:15:00', 250.00),
-('Pilates Intermedio', 'Clase de pilates nivel intermedio', '01:15:00', 250.00),
-('CrossFit', 'Entrenamiento intensivo avanzado', '01:30:00', 300.00);
+('Pilates Reformer', 'Fortalece tu núcleo y mejora tu postura, con la ayuda de una máquina especializada. Ejercicios adaptables para todos los niveles.', '1:00', 230),
+('Pilates Mat', 'Entrena con tu propio peso corporal en colchonetas. Mejora el control, la alineación y la flexibilidad en cada sesión.', '0:50', 230),
+('Pilates Springboard', 'Desafía tu cuerpo, con una tabla y resortes. Trabaja fuerza y estabilidad a través de ejercicios dinámicos y variados.', '1:30', 230),
+('Barre', 'Tonifica y fortalece con movimientos inspirados en el ballet. Utiliza barras para mejorar tu postura y flexibilidad mientras te diviertes.', '1:00', 230),
+('Yoga', 'Conéctate contigo mismo a través de posturas, respiración y meditación. Encuentra equilibrio y bienestar en nuestros diversos estilos.', '1:15', 230),
+('Spinning', 'Siente la energía del ciclismo en interiores. Mejora tu condición cardiovascular y tonifica tus piernas con música motivadora y un instructor que te guía.', '0:50', 230);
+
 SELECT * FROM CatalogoClases;
 
 INSERT INTO Salones (NombreSalon, Capacidad) VALUES
-('Salon A', 20),
-('Salon B', 15),
-('Salon C', 25);
+('Salón Flex', 12),
+('Barre Flow', 20),
+('Cycle Beat', 30);
 SELECT * FROM Salones;
 
 INSERT INTO Clases (IdClase, IdCoach, FechaHora, Capacidad, IdSalon) VALUES
@@ -114,12 +141,12 @@ INSERT INTO Clases (IdClase, IdCoach, FechaHora, Capacidad, IdSalon) VALUES
 (4, 5, '2024-12-05 07:00:00', 18, 1),
 
 -- Clases por pasar
-(5, 6, '2024-12-15 09:00:00', 20, 2),
-(1, 7, '2024-12-18 17:00:00', 15, 3),
-(2, 2, '2024-12-20 06:30:00', 25, 1),
-(3, 3, '2024-12-22 12:00:00', 22, 3),
-(4, 4, '2024-12-23 19:00:00', 18, 2),
-(5, 5, '2024-12-25 08:00:00', 24, 1);
+(5, 6, '2025-04-15 09:00:00', 20, 2),
+(1, 7, '2025-04-18 17:00:00', 15, 3),
+(2, 2, '2025-04-20 06:30:00', 25, 1),
+(3, 3, '2025-04-22 12:00:00', 22, 3),
+(4, 4, '2025-04-23 19:00:00', 18, 2),
+(5, 5, '2025-04-25 08:00:00', 24, 1);
 SELECT * FROM Clases;
 
 INSERT INTO ClaseCliente (IdCliente, IdClaseProgramada, FechaInscripcion) VALUES
@@ -159,11 +186,13 @@ INSERT INTO ClaseCliente (IdCliente, IdClaseProgramada, FechaInscripcion) VALUES
 
 SELECT * FROM ClaseCliente WHERE IdCliente =2;
 
+INSERT INTO CatalogoPlanes (NombrePlan, Descripcion, Costo) VALUES
+('Clase suelta', 'Válido en todas las clases, Vigencia: 15 días', 150),
+('8 clases', 'Válido en todas las clases, Vigencia: 45 días', 1080),
+('12 clases', 'Válido en todas las clases, Vigencia: 45 días', 1620),
+('1 mes', 'Válido en todas las clases, Máximo 2 clases por día, Vigencia: 30 días', 3000),
+('6 meses', 'Válido en todas las clases, Máximo 2 clases por día, Vigencia: 180 días', 18000);
 
-INSERT INTO CatalogoPlanes (NombrePlan, Descripcion, Costo) VALUES 
-    ('Básico', 'Acceso a todas las clases durante 1 mes', 500.00),
-    ('Premium', 'Acceso ilimitado y uso de equipos especiales durante 1 mes', 1000.00),
-    ('Anual', 'Acceso a todas las clases durante 1 año', 5000.00);
 
 SELECT * FROM CatalogoPlanes;
 
@@ -174,11 +203,25 @@ INSERT INTO FormaPago (NombreFormaPago, Descripcion) VALUES
     
 SELECT * FROM FormaPago;
 
-INSERT INTO Pagos (IdCliente, IdPlan, IdFormaPago, Monto, FechaPago, EstadoPago)VALUES 
-    (1, 1, 1, 500.00, '2024-10-01 10:00:00', TRUE),   
-    (2, 2, 2, 1000.00, '2024-09-15 12:00:00', TRUE),  
-    (3, 1, 3, 500.00, '2024-10-05 15:00:00', FALSE),  
-    (1, 3, 1, 5000.00, '2024-10-10 09:30:00', TRUE),  
-    (2, 1, 2, 500.00, '2024-08-20 11:00:00', TRUE);  
+INSERT INTO Pagos (IdCliente, IdPlan, IdFormaPago, Monto, FechaPago, EstadoPago) VALUES
+(1, 1, 1, 150, '2023-04-01', true),
+(2, 2, 2, 1080, '2023-04-15', true),
+(3, 3, 3, 1620, '2023-05-01', true),
+(4, 4, 1, 3000, '2023-05-15', true),
+(5, 5, 2, 18000, '2023-06-01', true),
+(6, 1, 3, 150, '2023-06-15', false),
+(7, 2, 1, 1080, '2023-07-01', false),
+(8, 3, 2, 1620, '2023-07-15', true),
+(9, 4, 3, 3000, '2023-08-01', true),
+(10, 5, 1, 18000, '2023-08-15', false),
+(11, 1, 2, 150, '2023-09-01', true),
+(12, 2, 3, 1080, '2023-09-15', true),
+(13, 3, 1, 1620, '2023-10-01', false),
+(14, 4, 2, 3000, '2023-10-15', true),
+(15, 5, 3, 18000, '2023-11-01', true),
+(16, 1, 1, 150, '2023-11-15', true),
+(17, 2, 2, 1080, '2023-12-01', false),
+(18, 3, 3, 1620, '2023-12-15', true);
+
     
 SELECT * FROM Pagos;
