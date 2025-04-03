@@ -1,4 +1,4 @@
-#Karla Trejo Delgadillo y Luis Lagos Camacho - Proyecto
+#Karla Trejo Delgadillo, Luis Lagos Camacho y Swietenia Medina Gasca - Proyecto
 #Base de datos de un centro de ejercicio
 
 #Script para crear base de datos y tablas
@@ -8,7 +8,7 @@ CREATE DATABASE CentroEjercicio;
 
 USE CentroEjercicio;
 
-#Tabla Tipos de usuarios ("Admin", "Coach", "Cliente")
+#Tabla Tipos de usuarios ("Admin", "Encargado", "Coach", "Cliente")
 CREATE TABLE IF NOT EXISTS TipoUsuario(
 IdTipo INT AUTO_INCREMENT PRIMARY KEY,
 Tipo VARCHAR(10)
@@ -24,11 +24,11 @@ Tipo INT,
 FOREIGN KEY (Tipo) REFERENCES TipoUsuario(IdTipo)
 );
 
-#Tabla Especialidad - Define las áreas de especialidad de los coaches
+#Tabla Especialidad - Define las áreas de especialidad de los coaches ("Pilates", "Barre", "Yoga", "Spinning")
 CREATE TABlE IF NOT EXISTS Especialidad(
 IdEspecialidad INT AUTO_INCREMENT PRIMARY KEY,
 NombreEspecialidad VARCHAR(50),
-Descripcion VARCHAR(100)
+Descripcion VARCHAR(250)
 );
 
 #Tabla Coach
@@ -37,14 +37,21 @@ IdCoach INT AUTO_INCREMENT PRIMARY KEY,
 NombreCoach VARCHAR(50) NOT NULL,
 ApellidoPaterno VARCHAR(50),
 ApellidoMaterno VARCHAR(50),
-IdEspecialidad INT,
 FechaNacimiento DATE,
 Telefono VARCHAR(50),
 FechaContratacion DATE ,
 Email VARCHAR(50),
 IdUsuario INT,
-FOREIGN KEY (IdEspecialidad) REFERENCES Especialidad(IdEspecialidad),
 FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+);
+
+#Tabla que relaciona a los coaches con su especialidad, asi pueden tener más de una
+CREATE TABLE IF NOT EXISTS CoachEspecialidad(
+IdCoach INT,
+IdEspecialidad INT,
+PRIMARY KEY (IDCoach, IdEspecialidad),
+FOREIGN KEY (IdCoach) REFERENCES Coach(IdCoach),
+FOREIGN KEY (IdEspecialidad) REFERENCES Especialidad(IdEspecialidad)
 );
 
 #Tabla Clientes
@@ -75,7 +82,20 @@ IdUsuario INT,
 FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 );
 
-#Tabla Salones
+CREATE TABLE IF NOT EXISTS Encargado(
+IdAdministrador INT AUTO_INCREMENT PRIMARY KEY,
+NombreEncargado VARCHAR(50) NOT NULL,
+ApellidoPaterno VARCHAR(50),
+ApellidoMaterno VARCHAR(50),
+FechaNacimiento DATE,
+Telefono VARCHAR(50),
+FechaContratacion DATE,
+Email VARCHAR(50),
+IdUsuario INT,
+FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+);
+
+#Tabla Salones ("Salón Flex", "Cycle Beat", "Cycle Beat")
 CREATE TABLE IF NOT EXISTS Salones(
 IdSalon INT AUTO_INCREMENT PRIMARY KEY ,
 NombreSalon VARCHAR(25) NOT NULL,
@@ -147,6 +167,9 @@ FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente),
 FOREIGN KEY (IdPlan) REFERENCES CatalogoPlanes(IdPlan),
 FOREIGN KEY (IdFormaPago) REFERENCES FormaPago(IdFormaPago)
 );
+
+
+
 
 
 
