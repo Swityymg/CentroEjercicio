@@ -43,6 +43,8 @@ DELIMITER ;
 
 
 -- Ejemplos de cancelación
-CALL CancelarCita(2, 5);
-CALL CancelarCita(2, 2);
-CALL CancelarCita(2, 9);
+-- checar bien el numero 
+CALL CancelarCita(2, 32);
+CALL CancelarCita(3, 36);
+CALL CancelarCita(5, 37);
+
