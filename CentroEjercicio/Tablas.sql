@@ -11,7 +11,7 @@ USE CentroEjercicio;
 #Tabla Tipos de usuarios ("Admin", "Encargado", "Coach", "Cliente")
 CREATE TABLE IF NOT EXISTS TipoUsuario(
 IdTipo INT AUTO_INCREMENT PRIMARY KEY,
-Tipo VARCHAR(10)
+Tipo VARCHAR(20)
 );
 
 
@@ -44,6 +44,7 @@ Email VARCHAR(50),
 IdUsuario INT,
 FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 );
+
 
 #Tabla que relaciona a los coaches con su especialidad, asi pueden tener más de una
 CREATE TABLE IF NOT EXISTS CoachEspecialidad(
@@ -106,7 +107,7 @@ Capacidad INT CHECK( Capacidad >0 )
 CREATE TABlE IF NOT EXISTS CatalogoClases(
 IdClase INT AUTO_INCREMENT PRIMARY KEY,
 NombreClase VARCHAR (25),
-Descripcion VARCHAR(100),
+Descripcion TEXT,
 Duracion TIME,
 Costo DECIMAL(8,2)
 );
@@ -136,6 +137,8 @@ FechaInscripcion DATE,
 FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente),
 FOREIGN KEY (IdClaseProgramada) REFERENCES Clases(IdClaseProgramada)
 );
+
+
 
 #Tablas de pagos
 
@@ -167,16 +170,4 @@ FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente),
 FOREIGN KEY (IdPlan) REFERENCES CatalogoPlanes(IdPlan),
 FOREIGN KEY (IdFormaPago) REFERENCES FormaPago(IdFormaPago)
 );
-
-
-
-
-
-
-
-
-
-
-
-
 
