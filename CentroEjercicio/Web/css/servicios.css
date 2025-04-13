@@ -1,0 +1,298 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Barra de navegación */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: rgba(229, 214, 243, 1);
+}
+
+.nav a {
+    text-decoration: none;
+    color: rgba(165, 89, 237, 1);
+    margin: 0 15px;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: #666;
+}
+
+
+
+/* Botón de registrare */
+.btn-primary {
+    background-color: rgba(165, 89, 237, 1);
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 40px;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: rgba(191, 162, 219, 1);
+    border-color: rgba(165, 89, 237, 1);
+}
+
+/* Botón de inicio de sesión */
+.btn-outline-primary {
+    color: rgba(165, 89, 237, 1);
+    border-color: rgba(165, 89, 237, 1);
+    background-color: transparent;
+    height: 40px;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: rgba(165, 89, 237, 1);
+    border-color: rgba(165, 89, 237, 1);
+}
+
+
+
+/* Sección principal */
+.hero-section {
+    text-align: center;
+}
+
+
+.hero-section {
+    color: rgba(165, 89, 237, 1) !important;
+    font-size: 4px;
+    font-weight: 1000 !important; /* Negrita */
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.fondo{
+    background-image: image-set('../image/mat3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.fondo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(239, 227, 250, 0.6), rgba(240, 229, 250, 0.6)); 
+    z-index: 1; 
+}
+
+.fondo .row {
+    position: relative;
+    z-index: 2; 
+}
+
+
+.hero-content {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards; 
+}
+
+.hero-content h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #333;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    transform: translateY(-20px); 
+    animation: slideIn 1s ease-in-out forwards; 
+}
+
+.hero-content p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    transform: translateY(20px); 
+    animation: slideIn 1s ease-in-out forwards; 
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+/* Clases */
+ .clases {
+    padding: 50px;
+    background-color: rgba(229, 214, 243, 1);
+}
+
+
+
+.clases-card {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.clases-card:hover {
+    transform: scale(1.02);
+}
+
+.clases-card img {
+    transition: filter 0.3s ease;
+}
+
+.clases-card:hover img {
+    filter: brightness(60%);
+}
+
+/* Overlay con nombre */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 225px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* opcional, para más sombra */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.clases-card:hover .overlay {
+    opacity: 1;
+}
+
+
+
+
+
+
+
+/* Salones */
+.salones {
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 50px;
+    background-color: rgba(237, 244, 228, 1);
+}
+
+.salones img {
+    height: 500px;
+    width: 500px;
+    border-radius: 15px;
+}
+
+.salones-text {
+    width: 50%;
+}
+
+
+.recuadro{
+    background-color:rgba(195, 213, 176, 1);
+    height: 300px;
+    width: 800px;
+    justify-content: center;
+    padding-top: 15px;
+    padding-left: 20px;
+    border-radius: 8px;
+    margin-right: 60px;
+}
+
+.caja{
+    background-color:rgba(195, 213, 176, 1);
+    height: 300px;
+    width: 800px;
+    justify-content: center;
+    padding-top: 15px;
+    padding-left: 20px;
+    border-radius: 8px;
+}
+
+.recuadro,
+.caja{
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease,transform 0.3s ease;
+}
+
+.recuadro:hover,
+.caja:hover{
+    background-color: rgb(224, 239, 206);
+    transform: translateY(-5px);
+}
+
+
+/* Precios */
+.precios {
+    padding: 50px;
+    background-color: rgba(229, 214, 243, 1);
+}
+
+.card {
+    transition: all 0.3s ease-in-out; 
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.card:hover {
+    transform: translateY(-0.25rem); /* Mover la tarjeta un poco hacia arriba */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25); /* Sombra más pronunciada */
+  }
+  
+  
+.card-header.text-bg-primary {
+    background-color: rgba(165, 89, 237, 1) !important;
+    border-color: rgba(165, 89, 237, 1)!important;
+    color: #fff !important; 
+}
+
+.card.border-primary {
+    border-color: rgba(165, 89, 237, 1) !important;
+}
+
+
+
+/* Footer */
+footer {
+    color: rgba(165, 89, 237, 1);
+    text-align: center;
+    ;
+
+}
