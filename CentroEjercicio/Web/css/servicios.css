@@ -215,9 +215,10 @@ header {
 }
 
 .salones img {
-    height: 500px;
+    height: 300px;
     width: 500px;
     border-radius: 15px;
+    background-size: contain;
 }
 
 .salones-text {
@@ -296,3 +297,28 @@ footer {
     ;
 
 }
+.recuadro {
+    background-color: rgba(195, 213, 176, 1);
+    height: 300px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.recuadro:hover {
+    background-color: rgb(224, 239, 206);
+    transform: translateY(-5px);
+}
+
+.row.featurette {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.col-md-7, .col-md-5 {
+    padding: 0 15px;
+}
+
