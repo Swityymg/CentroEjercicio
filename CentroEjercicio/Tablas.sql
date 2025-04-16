@@ -25,7 +25,7 @@ FOREIGN KEY (Tipo) REFERENCES TipoUsuario(IdTipo)
 );
 
 #Tabla Especialidad - Define las áreas de especialidad de los coaches ("Pilates", "Barre", "Yoga", "Spinning")
-CREATE TABlE IF NOT EXISTS Especialidad(
+CREATE TABLE IF NOT EXISTS Especialidad(
 IdEspecialidad INT AUTO_INCREMENT PRIMARY KEY,
 NombreEspecialidad VARCHAR(50),
 Descripcion VARCHAR(250)
@@ -83,8 +83,9 @@ IdUsuario INT,
 FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 );
 
+drop table if exists Encargado;
 CREATE TABLE IF NOT EXISTS Encargado(
-IdAdministrador INT AUTO_INCREMENT PRIMARY KEY,
+IdEncargado INT AUTO_INCREMENT PRIMARY KEY,
 NombreEncargado VARCHAR(50) NOT NULL,
 ApellidoPaterno VARCHAR(50),
 ApellidoMaterno VARCHAR(50),
