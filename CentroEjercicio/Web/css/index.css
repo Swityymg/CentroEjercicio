@@ -190,9 +190,8 @@ header {
     background-color:rgba(191, 162, 219, 1);
     height: 60px;
     width: 300px;
-    justify-content: center;
     padding-top: 15px;
-    padding-left: 20px;
+    padding-left: 30px;
     border-radius: 8px;
 }
 
@@ -204,6 +203,8 @@ footer {
 
 }
 
-
+.morado{
+    padding-left: 50%;
+}
 
 
