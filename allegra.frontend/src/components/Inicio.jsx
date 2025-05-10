@@ -22,11 +22,11 @@ function Inicio({ setVista }) {
           </div>
         </section>
 
-       {/* Sobre Nosotros*/}
+       {/* Sobre Nosotros */}
 <section className="sobre-nosotros py-5">
   <div className="container">
     <div className="row align-items-center">
-  
+
       <div className="col-lg-7 mb-4 mb-lg-0">
         <h2 className="mb-4">Sobre nosotros</h2>
         <p className="lead">
@@ -58,7 +58,7 @@ function Inicio({ setVista }) {
         </div>
       </div>
       
-      {/* Columna de imagen */}
+  
       <div className="col-lg-5">
         <img 
           src="/images/reformer1.jpg" 
