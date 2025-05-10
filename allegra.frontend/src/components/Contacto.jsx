@@ -1,20 +1,34 @@
-import Header from './Header';
-import Footer from './Footer';
-
-function Contacto({ setVista }) {
-  return (
-    <div className="d-flex flex-column min-vh-100">
-      <Header setVista={setVista} />
-      <main className="flex-grow-1">
-        <div className="container">
-          <h1>Contacto</h1>
-          <p>Placeholder para la página de contacto.</p>
-          <button onClick={() => setVista('registro')}>Ir a Registro</button>
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
+ /* fondo de portada inicio */
+.fondo {
+  background-image: url('/images/mat3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  color: rgb(11, 9, 9); 
 }
 
-export default Contacto;
+.fondo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5); 
+  z-index: 0;
+}
+
+
+  
+  /* card */
+  .info-card {
+    width: 47%;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+  }
+ 
+  
