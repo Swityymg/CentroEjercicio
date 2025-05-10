@@ -701,3 +701,220 @@ app.get('/coaches', (req, res) => {
 app.listen(port, () => {
     console.log("Servidor iniciado en puerto " + port);
 });
+
+/*=========================
+    RUTAS DELETE PARA CLASES, COACHES Y SALONES
+=========================*/
+
+/**
+ * @swagger
+ * /clases/{id}:
+ *   delete:
+ *     summary: Eliminar una clase programada
+ *     tags: [Clases]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la clase programada a eliminar
+ *     responses:
+ *       200:
+ *         description: Clase eliminada correctamente
+ *       404:
+ *         description: Clase no encontrada
+ *       500:
+ *         description: Error en el servidor
+ */
+app.delete('/clases/:id', (req, res) => {
+    const idClase = parseInt(req.params.id);
+
+    // Primero verificar si existe la clase
+    bd.query('SELECT * FROM Clases WHERE IdClaseProgramada = ?', [idClase], (err, results) => {
+        if (err) {
+            console.error('Error al verificar clase:', err);
+            return res.status(500).json({ error: 'Error en el servidor' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Clase no encontrada' });
+        }
+
+        // Eliminar primero las reservas asociadas (si las hay)
+        bd.query('DELETE FROM ClaseCliente WHERE IdClaseProgramada = ?', [idClase], (err) => {
+            if (err) {
+                console.error('Error al eliminar reservas:', err);
+                return res.status(500).json({ error: 'Error al eliminar reservas asociadas' });
+            }
+
+            // Luego eliminar la clase
+            bd.query('DELETE FROM Clases WHERE IdClaseProgramada = ?', [idClase], (err) => {
+                if (err) {
+                    console.error('Error al eliminar clase:', err);
+                    return res.status(500).json({ error: 'Error al eliminar clase' });
+                }
+                res.json({ message: 'Clase eliminada correctamente' });
+            });
+        });
+    });
+});
+
+/**
+ * @swagger
+ * /coaches/{id}:
+ *   delete:
+ *     summary: Eliminar un coach
+ *     tags: [Clases]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del coach a eliminar
+ *     responses:
+ *       200:
+ *         description: Coach eliminado correctamente
+ *       400:
+ *         description: No se puede eliminar el coach porque tiene clases asignadas
+ *       404:
+ *         description: Coach no encontrado
+ *       500:
+ *         description: Error en el servidor
+ */
+app.delete('/coaches/:id', (req, res) => {
+    const idCoach = parseInt(req.params.id);
+
+    // Primero verificar si existe el coach
+    bd.query('SELECT * FROM Coach WHERE IdCoach = ?', [idCoach], (err, results) => {
+        if (err) {
+            console.error('Error al verificar coach:', err);
+            return res.status(500).json({ error: 'Error en el servidor' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Coach no encontrado' });
+        }
+
+        // Verificar si el coach tiene clases asignadas
+        bd.query('SELECT * FROM Clases WHERE IdCoach = ?', [idCoach], (err, clasesResults) => {
+            if (err) {
+                console.error('Error al verificar clases del coach:', err);
+                return res.status(500).json({ error: 'Error en el servidor' });
+            }
+
+            if (clasesResults.length > 0) {
+                return res.status(400).json({ 
+                    error: 'No se puede eliminar el coach porque tiene clases asignadas',
+                    clasesAsignadas: clasesResults.map(c => c.IdClaseProgramada)
+                });
+            }
+
+            // Obtener el IdUsuario para eliminar también el usuario asociado
+            const idUsuario = results[0].IdUsuario;
+
+            // Iniciar transacción para eliminar coach y usuario
+            bd.beginTransaction((err) => {
+                if (err) {
+                    console.error('Error al iniciar transacción:', err);
+                    return res.status(500).json({ error: 'Error en el servidor' });
+                }
+
+                // Eliminar el coach
+                bd.query('DELETE FROM Coach WHERE IdCoach = ?', [idCoach], (err) => {
+                    if (err) {
+                        console.error('Error al eliminar coach:', err);
+                        return bd.rollback(() => {
+                            res.status(500).json({ error: 'Error al eliminar coach' });
+                        });
+                    }
+
+                    // Eliminar el usuario asociado
+                    bd.query('DELETE FROM Usuarios WHERE IdUsuario = ?', [idUsuario], (err) => {
+                        if (err) {
+                            console.error('Error al eliminar usuario:', err);
+                            return bd.rollback(() => {
+                                res.status(500).json({ error: 'Error al eliminar usuario asociado' });
+                            });
+                        }
+
+                        // Confirmar transacción
+                        bd.commit((err) => {
+                            if (err) {
+                                console.error('Error al confirmar transacción:', err);
+                                return bd.rollback(() => {
+                                    res.status(500).json({ error: 'Error en el servidor' });
+                                });
+                            }
+                            res.json({ message: 'Coach eliminado correctamente' });
+                        });
+                    });
+                });
+            });
+        });
+    });
+});
+
+/**
+ * @swagger
+ * /salones/{id}:
+ *   delete:
+ *     summary: Eliminar un salón
+ *     tags: [Clases]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del salón a eliminar
+ *     responses:
+ *       200:
+ *         description: Salón eliminado correctamente
+ *       400:
+ *         description: No se puede eliminar el salón porque tiene clases asignadas
+ *       404:
+ *         description: Salón no encontrado
+ *       500:
+ *         description: Error en el servidor
+ */
+app.delete('/salones/:id', (req, res) => {
+    const idSalon = parseInt(req.params.id);
+
+    // Primero verificar si existe el salón
+    bd.query('SELECT * FROM Salones WHERE IdSalon = ?', [idSalon], (err, results) => {
+        if (err) {
+            console.error('Error al verificar salón:', err);
+            return res.status(500).json({ error: 'Error en el servidor' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Salón no encontrado' });
+        }
+
+        // Verificar si el salón tiene clases asignadas
+        bd.query('SELECT * FROM Clases WHERE IdSalon = ?', [idSalon], (err, clasesResults) => {
+            if (err) {
+                console.error('Error al verificar clases del salón:', err);
+                return res.status(500).json({ error: 'Error en el servidor' });
+            }
+
+            if (clasesResults.length > 0) {
+                return res.status(400).json({ 
+                    error: 'No se puede eliminar el salón porque tiene clases asignadas',
+                    clasesAsignadas: clasesResults.map(c => c.IdClaseProgramada)
+                });
+            }
+
+            // Eliminar el salón
+            bd.query('DELETE FROM Salones WHERE IdSalon = ?', [idSalon], (err) => {
+                if (err) {
+                    console.error('Error al eliminar salón:', err);
+                    return res.status(500).json({ error: 'Error al eliminar salón' });
+                }
+                res.json({ message: 'Salón eliminado correctamente' });
+            });
+        });
+    });
+});
