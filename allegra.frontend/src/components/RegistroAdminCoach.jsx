@@ -232,7 +232,7 @@ function RegistroAdminCoach({ setVista }) {
                   <div className="invalid-feedback">{errors.tipo}</div>
                 </div>
                 <div className="col-12">
-                  <button className="btn btn-primary w-100" type="submit">
+                  <button className="btn btn-purple w-100" type="submit">
                     Registrarse
                   </button>
                 </div>
