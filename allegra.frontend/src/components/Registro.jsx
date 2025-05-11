@@ -222,7 +222,7 @@ function Registro({ setVista }) {
 
                 <hr className="my-4" />
 
-                <button className="w-100 btn btn-primary btn-lg" type="submit">
+                <button className="w-100 btn btn-purple btn-lg" type="submit">
                   Crear cuenta
                 </button>
               </form>
