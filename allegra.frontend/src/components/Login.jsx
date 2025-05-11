@@ -144,7 +144,7 @@ function Login({ setVista, setUsuarioLogueado }) {
                   <div className="invalid-feedback">{errors.contraseña}</div>
                 </div>
                 <div className="col-12">
-                  <button className="btn btn-primary w-100" type="submit">
+                  <button className="btn btn-purple w-100" type="submit">
                     Iniciar Sesión
                   </button>
                 </div>
