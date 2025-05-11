@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import "./Servicios.css";
 
-function Servicios({ setVista }) {
+function Servicios({ setVista, setPaqueteSeleccionado }) {
   const clases = [
     {
       img: "reformer3.jpg",
@@ -37,6 +37,11 @@ function Servicios({ setVista }) {
     }
   ];
 
+  const handleComprar = (paquete) => {
+    setPaqueteSeleccionado(paquete);
+    setVista('pago');
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header setVista={setVista} />
@@ -47,11 +52,7 @@ function Servicios({ setVista }) {
             <div className="col-lg-6 col-md-8 mx-auto">
               <h1 className="fw-bold">Servicios</h1>
               <p className="lead text-body-secondary">Movimiento. Fuerza. Equilibrio</p>
-              <p>
-                <a href="registrarse.html" className="btn btn-primary my-2">
-                  Reservar clase
-                </a>
-              </p>
+            
             </div>
           </div>
         </section>
@@ -149,7 +150,16 @@ function Servicios({ setVista }) {
                   <li>Válido en todas las clases</li>
                   <li>Vigencia: 15 días</li>
                 </ul>
-                <button className="btn-comprar destacado">Comprar</button>
+                <button 
+                  className="btn-comprar destacado" 
+                  onClick={() => handleComprar({
+                    nombre: "Clase suelta",
+                    precio: 150,
+                    detalles: ["Válido en todas las clases", "Vigencia: 15 días"]
+                  })}
+                >
+                  Comprar
+                </button>
               </div>
 
               {/* 8 clases */}
@@ -160,7 +170,16 @@ function Servicios({ setVista }) {
                   <li>Válido en todas las clases</li>
                   <li>Vigencia: 45 días</li>
                 </ul>
-                <button className="btn-comprar destacado">Comprar</button>
+                <button 
+                  className="btn-comprar destacado" 
+                  onClick={() => handleComprar({
+                    nombre: "8 clases",
+                    precio: 1080,
+                    detalles: ["Válido en todas las clases", "Vigencia: 45 días"]
+                  })}
+                >
+                  Comprar
+                </button>
               </div>
 
               {/* 12 clases */}
@@ -171,7 +190,16 @@ function Servicios({ setVista }) {
                   <li>Válido en todas las clases</li>
                   <li>Vigencia: 45 días</li>
                 </ul>
-                <button className="btn-comprar destacado">Comprar</button>
+                <button 
+                  className="btn-comprar destacado" 
+                  onClick={() => handleComprar({
+                    nombre: "12 clases",
+                    precio: 1620,
+                    detalles: ["Válido en todas las clases", "Vigencia: 45 días"]
+                  })}
+                >
+                  Comprar
+                </button>
               </div>
             </div>
 
@@ -186,7 +214,20 @@ function Servicios({ setVista }) {
                     <li>Máximo 2 clases por día</li>
                     <li>Vigencia: 30 días</li>
                   </ul>
-                  <button className="btn-comprar destacado">Comprar</button>
+                  <button 
+                    className="btn-comprar destacado" 
+                    onClick={() => handleComprar({
+                      nombre: "1 mes",
+                      precio: 3000,
+                      detalles: [
+                        "Válido en todas las clases",
+                        "Máximo 2 clases por día",
+                        "Vigencia: 30 días"
+                      ]
+                    })}
+                  >
+                    Comprar
+                  </button>
                 </div>
               </div>
 
@@ -200,7 +241,20 @@ function Servicios({ setVista }) {
                     <li>Máximo 2 clases por día</li>
                     <li>Vigencia: 180 días</li>
                   </ul>
-                  <button className="btn-comprar destacado">Comprar</button>
+                  <button 
+                    className="btn-comprar destacado" 
+                    onClick={() => handleComprar({
+                      nombre: "6 meses",
+                      precio: 18000,
+                      detalles: [
+                        "Válido en todas las clases",
+                        "Máximo 2 clases por día",
+                        "Vigencia: 180 días"
+                      ]
+                    })}
+                  >
+                    Comprar
+                  </button>
                 </div>
               </div>
 
@@ -214,7 +268,20 @@ function Servicios({ setVista }) {
                     <li>Máximo 2 clases por día</li>
                     <li>Vigencia: 365 días</li>
                   </ul>
-                  <button className="btn-comprar destacado">Comprar</button>
+                  <button 
+                    className="btn-comprar destacado" 
+                    onClick={() => handleComprar({
+                      nombre: "1 año",
+                      precio: 35000,
+                      detalles: [
+                        "Válido en todas las clases",
+                        "Máximo 2 clases por día",
+                        "Vigencia: 365 días"
+                      ]
+                    })}
+                  >
+                    Comprar
+                  </button>
                 </div>
               </div>
             </div>
