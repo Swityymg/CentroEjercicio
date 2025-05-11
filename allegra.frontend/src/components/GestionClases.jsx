@@ -8,7 +8,7 @@ import Header from './Header';
 import Footer from './Footer';
 import './GestionClases.css';
 
-// Configuración de moment.js 
+// moment js
 moment.locale('es', {
   months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
   weekdays: 'Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado'.split('_'),
@@ -17,11 +17,24 @@ moment.locale('es', {
 
 const localizer = momentLocalizer(moment);
 
-// Componente personalizado para eventos (mejorado)
-const EventComponent = ({ event }) => {
+
+const EventComponent = ({ event, usuarioLogueado, handleDeleteClass }) => {
   return (
     <div className="rbc-event-content">
-      <strong>{event.title.split('\n')[0]}</strong>
+      <div className="d-flex justify-content-between">
+        <strong>{event.title.split('\n')[0]}</strong>
+        {usuarioLogueado.tipo === 1 && (
+          <button 
+            className="btn btn-sm btn-danger ms-2"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteClass(event.id);
+            }}
+          >
+            ×
+          </button>
+        )}
+      </div>
       <div className="event-details">
         {event.title.split('\n').slice(1).map((line, i) => (
           <div key={i} className="event-detail-line">{line}</div>
@@ -31,7 +44,7 @@ const EventComponent = ({ event }) => {
   );
 };
 
-// Barra de herramientas personalizada (mejorada)
+// tool bar de calendario
 const CustomToolbar = (toolbar) => {
   const goToToday = () => toolbar.onNavigate('TODAY');
   const changeView = (view) => toolbar.onView(view);
@@ -88,7 +101,7 @@ function GestionClases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Función para obtener la fecha/hora actual formateada
+  // para tener fecha/ hora actual formateada
   const getCurrentDateTime = () => {
     const now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -121,7 +134,8 @@ function GestionClases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
           allDay: false,
           capacidad: clase.Capacidad,
           salon: clase.NombreSalon,
-          coach: clase.NombreCoach
+          coach: clase.NombreCoach,
+          idCoach: clase.IdCoach 
         }));
         
         setClases(eventos);
@@ -150,13 +164,13 @@ function GestionClases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
     e.preventDefault();
     setError('');
 
-    // Validación de campos obligatorios
+    // validar de campos obligatorios
     if (!formData.idClase || !formData.idCoach || !formData.fechaHora || !formData.capacidad || !formData.idSalon) {
       setError('Todos los campos son obligatorios');
       return;
     }
 
-    // Validación de fecha/hora (SOLO CAMBIO NECESARIO)
+    // valdiar de fecha /hora
     const fechaSeleccionada = new Date(formData.fechaHora);
     const ahora = new Date();
     if (fechaSeleccionada <= ahora) {
@@ -185,7 +199,8 @@ function GestionClases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
         allDay: false,
         capacidad: formData.capacidad,
         salon: salonSeleccionado.NombreSalon,
-        coach: coachSeleccionado.NombreCoach
+        coach: coachSeleccionado.NombreCoach,
+        idCoach: coachSeleccionado.IdCoach
       };
 
       setClases([...clases, nuevaClase]);
@@ -199,6 +214,18 @@ function GestionClases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
       alert('Clase creada correctamente');
     } catch (error) {
       setError(error.response?.data?.error || 'Error al crear clase');
+    }
+  };
+
+  const handleDeleteClass = async (claseId) => {
+    if (!window.confirm('¿Estás seguro de eliminar esta clase?')) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/clases/${claseId}`);
+      setClases(clases.filter(c => c.id !== claseId));
+      alert('Clase eliminada correctamente');
+    } catch (error) {
+      setError(error.response?.data?.error || 'Error al eliminar clase');
     }
   };
 
@@ -284,7 +311,7 @@ function GestionClases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
                       name="fechaHora"
                       value={formData.fechaHora}
                       onChange={handleChange}
-                      min={getCurrentDateTime()} // Mejora visual
+                      min={getCurrentDateTime()}
                       required
                     />
                   </div>
@@ -355,7 +382,13 @@ function GestionClases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
                 step={30}
                 timeslots={2}
                 components={{
-                  event: EventComponent,
+                  event: (props) => (
+                    <EventComponent 
+                      {...props} 
+                      usuarioLogueado={usuarioLogueado}
+                      handleDeleteClass={handleDeleteClass}
+                    />
+                  ),
                   toolbar: CustomToolbar
                 }}
                 messages={{
