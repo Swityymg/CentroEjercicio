@@ -7,6 +7,11 @@ import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 
+moment.locale('es', {
+  week: {
+    dow: 1,
+  }
+});
 const localizer = momentLocalizer(moment);
 
 function Clases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
@@ -14,30 +19,52 @@ function Clases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log('Usuario en Clases:', usuarioLogueado); 
     if (!usuarioLogueado || usuarioLogueado.tipo !== 4) {
       setVista('inicio');
       return;
     }
 
-    const fetchClases = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/clases/disponibles');
-        const eventos = response.data.map((clase) => ({
+        // carga clases disponibles
+        const clasesRes = await axios.get('http://localhost:3000/clases/disponibles');
+        
+        // Intentar cargar reservas del usr
+        let reservas = [];
+        try {
+          const reservasRes = await axios.get(`http://localhost:3000/clases/${usuarioLogueado.id_usuario}`);
+          reservas = reservasRes.data;
+        } catch (reservaError) {
+          console.warn('No se pudieron cargar las reservas:', reservaError.message);
+          
+        }
+
+        // Extraer ids de clases reservadas
+        const clasesReservadasIds = new Set(
+          reservas.map(clase => clase.IdClaseProgramada || clase.id_clase_programada)
+        );
+
+        // formato calendaario se mapea
+        const eventos = clasesRes.data.map((clase) => ({
           id: clase.IdClaseProgramada,
-          title: `${clase.NombreClase} - ${clase.NombreCoach} (${clase.NombreSalon})`,
+          title: `${clase.NombreClase}\n${clase.NombreCoach}`,
           start: new Date(clase.FechaHora),
-          end: new Date(new Date(clase.FechaHora).getTime() + 60 * 60 * 1000), 
+          end: new Date(new Date(clase.FechaHora).getTime() + 60 * 60 * 1000),
           allDay: false,
-          data: clase,
+          data: { 
+            ...clase, 
+            reservada: clasesReservadasIds.has(clase.IdClaseProgramada) 
+          },
         }));
+
         setClases(eventos);
       } catch (err) {
-        setError('Error al cargar clases: ' + (err.response?.data?.error || err.message));
+        console.error('Error al cargar datos:', err);
+        setError('Error al cargar las clases. Por favor intenta más tarde.');
       }
     };
 
-    fetchClases();
+    fetchData();
   }, [usuarioLogueado, setVista]);
 
   const handleReservar = async (clase) => {
@@ -46,17 +73,28 @@ function Clases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
         idClaseProgramada: clase.id,
         idUsuario: usuarioLogueado.id_usuario,
       });
-      setClases(clases.filter((c) => c.id !== clase.id)); 
-      alert('Clase reservada correctamente');
+      
+      // actualizar para marcar como resrvado
+      setClases(clases.map(c => 
+        c.id === clase.id ? { ...c, data: { ...c.data, reservada: true } } : c
+      ));
+      
+      alert('¡Clase reservada con éxito!');
     } catch (error) {
+      console.error('Error al reservar:', error);
       setError(error.response?.data?.error || 'Error al reservar clase');
     }
   };
 
-  const eventPropGetter = () => ({
+  const eventPropGetter = (event) => ({
     style: {
-      backgroundColor: '#3174ad',
+      backgroundColor: event.data.reservada ? '#4CAF50' : '#A559ED',
       color: 'white',
+      borderRadius: '4px',
+      border: 'none',
+      fontSize: '0.85rem',
+      padding: '2px 5px',
+      whiteSpace: 'normal'
     },
   });
 
@@ -64,39 +102,57 @@ function Clases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
     <div className="d-flex flex-column min-vh-100">
       <Header setVista={setVista} usuarioLogueado={usuarioLogueado} />
       <main className="flex-grow-1">
-        <div className="container py-5 text-center">
-          <h1>Mis Clases</h1>
-          <p>Bienvenido, {usuarioLogueado?.nombre || 'Usuario'}! Aquí están las clases disponibles.</p>
+        <div className="container py-4">
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h2 className="mb-0">Clases Disponibles</h2>
+            <div className="d-flex">
+              <span className="badge bg-primary mx-2">
+                <i className="bi bi-square-fill me-1"></i> Disponible
+              </span>
+              <span className="badge bg-success">
+                <i className="bi bi-square-fill me-1"></i> Reservada
+              </span>
+            </div>
+          </div>
+
           {error && <div className="alert alert-danger">{error}</div>}
 
-          <Calendar
-            localizer={localizer}
-            events={clases}
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: 500 }}
-            messages={{
-              next: 'Siguiente',
-              previous: 'Anterior',
-              today: 'Hoy',
-              month: 'Mes',
-              week: 'Semana',
-              day: 'Día',
-            }}
-            eventPropGetter={eventPropGetter}
-            onSelectEvent={(event) => {
-              const clase = event.data;
-              if (
-                window.confirm(
-                  `¿Reservar ${clase.NombreClase} con ${clase.NombreCoach} el ${moment(
-                    clase.FechaHora
-                  ).format('LLL')} en ${clase.NombreSalon}?`
-                )
-              ) {
-                handleReservar(event);
-              }
-            }}
-          />
+          <div style={{ height: '75vh' }}>
+            <Calendar
+              localizer={localizer}
+              events={clases}
+              startAccessor="start"
+              endAccessor="end"
+              defaultView="week"
+              views={['week']}
+              min={new Date(0, 0, 0, 7, 0, 0)}
+              max={new Date(0, 0, 0, 22, 0, 0)}
+              step={30}
+              timeslots={2}
+              defaultDate={new Date()}
+              eventPropGetter={eventPropGetter}
+              onSelectEvent={(event) => {
+                if (event.data.reservada) {
+                  alert('Ya has reservado esta clase');
+                  return;
+                }
+                if (window.confirm(
+                  `Reservar ${event.data.NombreClase} con ${event.data.NombreCoach}\n` +
+                  `El ${moment(event.start).format('dddd D [de] MMMM')}\n` +
+                  `De ${moment(event.start).format('HH:mm')} a ${moment(event.end).format('HH:mm')}\n` +
+                  `En ${event.data.NombreSalon}?`
+                )) {
+                  handleReservar(event);
+                }
+              }}
+              messages={{
+                today: 'Hoy',
+                previous: 'Anterior',
+                next: 'Siguiente',
+                week: 'Semana',
+              }}
+            />
+          </div>
         </div>
       </main>
       <Footer />
