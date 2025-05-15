@@ -52,7 +52,7 @@ function Servicios({ setVista, setPaqueteSeleccionado }) {
             <div className="col-lg-6 col-md-8 mx-auto">
               <h1 className="fw-bold">Servicios</h1>
               <p className="lead text-body-secondary">Movimiento. Fuerza. Equilibrio</p>
-            
+
             </div>
           </div>
         </section>
@@ -81,59 +81,77 @@ function Servicios({ setVista, setPaqueteSeleccionado }) {
           </div>
         </section>
 
-        {/* Salones Section */}
-        <section className="container py-5">
-          <h2 className="text-center mb-4">Salones</h2>
-          <p className="lead text-center">
-            Conoce nuestros 3 salones en los que encontrarás clases de diferentes disciplinas y dificultad que se adaptan a tus objetivos.
-          </p>
 
-          {/* Salón Flex */}
-          <div className="row featurette">
-            <div className="col-md-7">
-              <h3>Salón Flex</h3>
-              <h5 className="text-body-secondary">Capacidad: 12 personas</h5>
-              <p className="lead">
-                Descripción: Un espacio diseñado para clases de pilates, donde el enfoque principal es la flexibilidad, la postura y el control del cuerpo. Con un ambiente tranquilo y relajante, ideal para trabajar el equilibrio y fortalecer el core.
-              </p>
-            </div>
-            <div className="col-md-5">
-              <img src="images/reformer2.jpg" className="bd-placeholder-img featurette-image img-fluid mx-auto" alt="Salón Flex" />
-            </div>
-          </div>
 
-          <hr className="featurette-divider" />
 
-          {/* Barre Flow */}
-          <div className="row featurette">
-            <div className="col-md-4 order-md-1">
-              <img src="images/mat1.jpg" className="bd-placeholder-img featurette-image img-fluid mx-auto" alt="Barre Flow" />
+        {/* SALONES */}
+        <section className="aesthetic-salones">
+          <div className="container">
+            <div className="salon-header">
+              <h2>Nuestros Espacios</h2>
+              <p>Cada salón ha sido diseñado meticulosamente para crear la atmósfera perfecta para tu práctica.</p>
             </div>
-            <div className="col-md-7 order-md-2">
-              <h3>Barre Flow</h3>
-              <h5 className="text-body-secondary">Capacidad: 20 personas</h5>
-              <p className="lead">
-                Descripción: Este salón está dedicado a las clases de barre, combinando elementos del ballet, pilates y yoga. Un espacio dinámico y elegante que invita a la fluidez del movimiento, tonificando el cuerpo y mejorando la postura.
-              </p>
-            </div>
-          </div>
 
-          <hr className="featurette-divider" />
-
-          {/* Cycle Beat */}
-          <div className="row featurette">
-            <div className="col-md-7">
-              <h3>Cycle Beat</h3>
-              <h5 className="text-body-secondary">Capacidad: 30 personas</h5>
-              <p className="lead">
-                Descripción: Un salón vibrante y lleno de energía para las clases de spinning. Con música motivadora y un enfoque en el ritmo, este espacio está diseñado para un entrenamiento cardiovascular intenso y eficaz, ayudando a mejorar la resistencia y tonificación.
-              </p>
+            {/* Salón Flex */}
+            <div className="salon-card">
+              <div className="salon-image">
+                <img src="images/reformer2.jpg" alt="Salón Flex" />
+              </div>
+              <div className="salon-content">
+                <span className="salon-number">01</span>
+                <h3>Salón Flex</h3>
+                <span className="salon-capacity">CAPACIDAD: 12 PERSONAS</span>
+                <p>
+                  Un santuario para la práctica de pilates donde la luz natural y los detalles minimalistas
+                  crean un ambiente sereno. Diseñado para cultivar la flexibilidad y el control corporal
+                  a través de movimientos precisos.
+                </p>
+              </div>
             </div>
-            <div className="col-md-5">
-              <img src="images/Bici.jpg" className="bd-placeholder-img featurette-image img-fluid mx-auto" alt="Cycle Beat" />
+
+            <div className="salon-divider"></div>
+
+            {/* Barre Flow */}
+            <div className="salon-card reverse">
+              <div className="salon-image">
+                <img src="images/mat1.jpg" alt="Barre Flow" />
+              </div>
+              <div className="salon-content">
+                <span className="salon-number">02</span>
+                <h3>Barre Flow</h3>
+                <span className="salon-capacity">CAPACIDAD: 20 PERSONAS</span>
+                <p>
+                  Espacio luminoso con espejos estratégicamente colocados para perfeccionar la postura.
+                  La combinación de elementos de ballet y yoga crea una experiencia fluida que tonifica
+                  mientras promueve la gracia en el movimiento.
+                </p>
+              </div>
+            </div>
+
+            <div className="salon-divider"></div>
+
+            {/* Cycle Beat */}
+            <div className="salon-card">
+              <div className="salon-image">
+                <img src="images/Bici.jpg" alt="Cycle Beat" />
+              </div>
+              <div className="salon-content">
+                <span className="salon-number">03</span>
+                <h3>Cycle Beat</h3>
+                <span className="salon-capacity">CAPACIDAD: 30 PERSONAS</span>
+                <p>
+                  Ambiente energético con iluminación adaptable y sistema de sonido envolvente.
+                  Diseñado para sincronizar movimiento y música, transformando cada sesión en
+                  una experiencia cardiovascular estimulante.
+                </p>
+              </div>
             </div>
           </div>
         </section>
+
+
+
+
 
         {/* Precios Section */}
         <section className="precios-section">
@@ -145,13 +163,13 @@ function Servicios({ setVista, setPaqueteSeleccionado }) {
               {/* Clase suelta */}
               <div className="paquete-card destacado">
                 <div className="cabecera-destacada">Clase suelta</div>
-                <p className="precio">$150<span>/mxn</span></p>
+                <p className="precio">$230<span>/mxn</span></p>
                 <ul>
                   <li>Válido en todas las clases</li>
                   <li>Vigencia: 15 días</li>
                 </ul>
-                <button 
-                  className="btn-comprar destacado" 
+                <button
+                  className="btn-comprar destacado"
                   onClick={() => handleComprar({
                     nombre: "Clase suelta",
                     precio: 150,
@@ -170,8 +188,8 @@ function Servicios({ setVista, setPaqueteSeleccionado }) {
                   <li>Válido en todas las clases</li>
                   <li>Vigencia: 45 días</li>
                 </ul>
-                <button 
-                  className="btn-comprar destacado" 
+                <button
+                  className="btn-comprar destacado"
                   onClick={() => handleComprar({
                     nombre: "8 clases",
                     precio: 1080,
@@ -190,8 +208,8 @@ function Servicios({ setVista, setPaqueteSeleccionado }) {
                   <li>Válido en todas las clases</li>
                   <li>Vigencia: 45 días</li>
                 </ul>
-                <button 
-                  className="btn-comprar destacado" 
+                <button
+                  className="btn-comprar destacado"
                   onClick={() => handleComprar({
                     nombre: "12 clases",
                     precio: 1620,
@@ -214,8 +232,8 @@ function Servicios({ setVista, setPaqueteSeleccionado }) {
                     <li>Máximo 2 clases por día</li>
                     <li>Vigencia: 30 días</li>
                   </ul>
-                  <button 
-                    className="btn-comprar destacado" 
+                  <button
+                    className="btn-comprar destacado"
                     onClick={() => handleComprar({
                       nombre: "1 mes",
                       precio: 3000,
@@ -241,8 +259,8 @@ function Servicios({ setVista, setPaqueteSeleccionado }) {
                     <li>Máximo 2 clases por día</li>
                     <li>Vigencia: 180 días</li>
                   </ul>
-                  <button 
-                    className="btn-comprar destacado" 
+                  <button
+                    className="btn-comprar destacado"
                     onClick={() => handleComprar({
                       nombre: "6 meses",
                       precio: 18000,
@@ -268,8 +286,8 @@ function Servicios({ setVista, setPaqueteSeleccionado }) {
                     <li>Máximo 2 clases por día</li>
                     <li>Vigencia: 365 días</li>
                   </ul>
-                  <button 
-                    className="btn-comprar destacado" 
+                  <button
+                    className="btn-comprar destacado"
                     onClick={() => handleComprar({
                       nombre: "1 año",
                       precio: 35000,
