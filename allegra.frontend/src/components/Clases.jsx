@@ -29,7 +29,7 @@ function Clases({ usuarioLogueado, setVista, setUsuarioLogueado }) {
         // carga clases disponibles
         const clasesRes = await axios.get('http://localhost:3000/clases/disponibles');
         
-        // Intentar cargar reservas del usr
+        // Intentar cargar reservas del usuario
         let reservas = [];
         try {
           const reservasRes = await axios.get(`http://localhost:3000/clases/${usuarioLogueado.id_usuario}`);
