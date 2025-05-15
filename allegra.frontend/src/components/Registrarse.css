@@ -74,13 +74,13 @@ body {
     background-color: rgba(165, 89, 237, 1);
 }
 
-/* Validación de errores */
+/* validar de errores */
 .was-validated .form-control:invalid {
     border-color: #dc3545;
     background-color: #f8d7
 }
 
-/* Estilos para la notificación */
+/*  para la notificación */
 .notificacion {
     position: fixed;
     top: 20px;
@@ -104,7 +104,7 @@ body {
     background-color: #f44336;
 }
 
-/* Animación de aparición */
+/*  animacion aparición */
 @keyframes mostrarNotificacion {
     0% {
         opacity: 0;
